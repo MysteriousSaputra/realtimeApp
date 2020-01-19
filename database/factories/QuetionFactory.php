@@ -10,8 +10,8 @@ Use App\Models\Category;
 $factory->define(Quetion::class, function (Faker $faker) {
     return [
         //
-        'title'=> $faker->centence,
-        'slug'=>str_slug($faker->centence),
+        'title'=> $faker->sentence,
+        'slug'=>str_slug($faker->sentence),
         'body'=> $faker->text,
         'category_id'=> function () {
             return Category::all()->random();
