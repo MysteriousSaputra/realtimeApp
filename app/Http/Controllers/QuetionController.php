@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quetion;
 use Illuminate\Http\Request;
+use App\Http\Resources\QuetionResource;
 
 class QuetionController extends Controller
 {
@@ -14,17 +15,7 @@ class QuetionController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return QuetionResource::collection(Quetion::latest()->get());
     }
 
     /**
@@ -35,7 +26,8 @@ class QuetionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Quetion::create($request->all());
+        return response('Created', 201);
     }
 
     /**
@@ -46,18 +38,7 @@ class QuetionController extends Controller
      */
     public function show(Quetion $quetion)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Quetion  $quetion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Quetion $quetion)
-    {
-        //
+        return new QuetionResource($quetion);
     }
 
     /**
@@ -69,7 +50,8 @@ class QuetionController extends Controller
      */
     public function update(Request $request, Quetion $quetion)
     {
-        //
+        $quetion->update($request->all());
+        return response('updated', 201);
     }
 
     /**
@@ -80,6 +62,7 @@ class QuetionController extends Controller
      */
     public function destroy(Quetion $quetion)
     {
-        //
+        $quetion->delete();
+        return response(null, 204);
     }
 }

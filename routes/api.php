@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::apiResource('quetion', 'QuetionController');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('category', 'CategoryController');
+
+Route::apiResource('quetion/{quetion}/reply', 'ReplyController');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use App\Models\Quetion;
+use App\Http\Resources\ReplyResource;
 use Illuminate\Http\Request;
 
 class ReplyController extends Controller
@@ -12,19 +14,10 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Quetion $quetion)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ReplyResource::collection($quetion->replies);
+        // return Reply::latest()->get();
     }
 
     /**
@@ -33,9 +26,10 @@ class ReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Quetion $quetion, Request $request)
     {
-        //
+        $reply = $quetion->replies()->create($request->all());
+        return response(['reply'=> new ReqplyQuetion($reply)], 200);
     }
 
     /**
@@ -44,20 +38,9 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function show(Reply $reply)
+    public function show(Quetion $quetion, Reply $reply)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reply $reply)
-    {
-        //
+        return new ReplyResource($reply);
     }
 
     /**
@@ -67,9 +50,10 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Quetion $quetion, Request $request, Reply $reply)
     {
-        //
+        $reply->update($request->all());
+        return response(['reply'=> new ReplyResource($reply)], 200);
     }
 
     /**
@@ -78,8 +62,9 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy(Quetion $quetion, Reply $reply)
     {
-        //
+        $reply->delete();
+        return response(null, 204);
     }
 }
