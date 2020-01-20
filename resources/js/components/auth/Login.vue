@@ -71,12 +71,7 @@
         this.$refs.form.resetValidation()
       },
       login(){
-          axios.post('/api/auth/login', this.form)
-          .then((result) => {
-              console.log(result.data)
-          }).catch((err) => {
-              console.error(err)
-          });
+        User.login(this.form);
       }
     },
   }
