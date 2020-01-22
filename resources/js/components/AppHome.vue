@@ -1,7 +1,7 @@
 <template>
     <div>
     <toolbar></toolbar>
-    <router-view></router-view>
+    <router-view></router-view><br>
     <app-footer></app-footer>
     </div>
 
@@ -12,12 +12,12 @@ import toolbar from './Toolbar';
 import AppFooter from './AppFooter';
 
 
-    export default {
-        components:{
-            toolbar,
-            AppFooter
-        }
+export default {
+    components: {
+        toolbar,
+        AppFooter
     }
+}
 </script>
 
 <style lang="scss" scoped>

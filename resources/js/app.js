@@ -8,10 +8,18 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import Vuetify from 'vuetify';
-Vue.use(Vuetify);
-
+import VueSimplemde from 'vue-simplemde'
 import User from './helpers/User';
+import md from 'marked';
+
+
+Vue.use(Vuetify);
+Vue.use(VueSimplemde);
+
+
 window.User = User;
+window.md = md;
+window.EventBus = new Vue();
 
 /**
  * The following block of code may be used to automatically register your

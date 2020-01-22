@@ -25,7 +25,7 @@ class QuetionController extends Controller
      */
     public function index()
     {
-        return QuetionResource::collection(Quetion::latest()->get());
+        return QuetionResource::collection(Quetion::latest()->get()->take(5));
     }
 
     /**
@@ -36,8 +36,10 @@ class QuetionController extends Controller
      */
     public function store(Request $request)
     {
-        Quetion::create($request->all());
-        return response('Created', 201);
+        $userId = auth()->user()->id;
+        $request['slug'] = str_slug($request->title);
+        $request['user_id'] = $userId;
+        return response(new QuetionResource(Quetion::create($request->all())), 201);
     }
 
     /**

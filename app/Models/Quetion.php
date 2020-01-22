@@ -29,6 +29,6 @@ class Quetion extends Model
     }
 
     public function getPathAttribute(){
-        return asset("api/quetion/$this->slug");
+        return "quetion/$this->slug";
     }
 }

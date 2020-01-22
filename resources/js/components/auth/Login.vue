@@ -12,6 +12,7 @@
       type="email"
       label="E-mail"
       required
+      autocomplete="off"
     ></v-text-field>
 
     <v-text-field
@@ -20,6 +21,7 @@
       :rules="passwordRules"
       type="password"
       label="Password"
+      autocomplete="off"
       required
     ></v-text-field>
 
@@ -34,11 +36,23 @@
       Login
     </v-btn>
 
+    <router-link to="/signup">
+        <v-btn
+      color="primary"
+      class="mr-4"
+    >
+      Sign Up
+    </v-btn>
+    </router-link>
+
   </v-form>
+
   </v-container>
 </template>
 
 <script>
+import ToolbarComponent from '../Toolbar';
+
   export default {
     data: () => ({
       valid: true,
@@ -57,7 +71,11 @@
           password:null
       },
     }),
-
+    created(){
+        if (User.logedin()) {
+            this.$router.push({name:'forum'})
+        }
+    },
     methods: {
       validate () {
         if (this.$refs.form.validate()) {
@@ -72,8 +90,13 @@
       },
       login(){
         User.login(this.form);
+        this.$router.push({name:'forum'});
+        // this.renderToolbarComponent = true;
       }
     },
+    components:{
+        ToolbarComponent
+    }
   }
 </script>
 <style lang="scss" scoped>

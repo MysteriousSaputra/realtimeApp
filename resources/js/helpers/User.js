@@ -8,7 +8,7 @@ class User {
             this.responseAfterLogin(result)
         })
         .catch((err) => {
-            console.error(err);
+            // console.error(err);
         });
     }
 
@@ -18,19 +18,48 @@ class User {
 
         if (Token.isValid(access_token)) {
             AppStorage.store(access_token, username);
+            window.location = '/forum';
         }
 
     }
 
     hasToken(){
-        const storedToken = AppStorage.getToken;
+        const storedToken = AppStorage.getToken();
 
         if (storedToken) {
-            return Token.isValid ? true : falsw;
+            return Token.isValid ? true : false;
         }
 
         return false;
     }
+
+    logedin(){
+        return this.hasToken();
+    }
+
+    logout(){
+        AppStorage.clear();
+        window.location = '/forum';
+    }
+
+    name(){
+        if (this.logedin) {
+            return AppStorage.getUser();
+        }
+    }
+
+    id(){
+        if (this.logedin()) {
+            const payload = Token.payload(AppStorage.getToken());
+            return payload.sub;
+        }
+    }
+
+    own(id){
+        return this.id() == id;
+    }
+
+
 }
 
 export default User = new User();
