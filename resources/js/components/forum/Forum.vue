@@ -45,6 +45,7 @@
             }).catch((err) => {
                 console.log(err)
             });
+            // console.log(this.quetions)
         }
     }
 </script>
