@@ -51,7 +51,7 @@
       items: [
         { title: 'Forum', to: 'forum', show:true  },
         { title: 'Ask Quetion', to: 'askQuetion', show:User.logedin()},
-        { title: 'Category', to: 'forum', show:User.logedin()},
+        { title: 'Category', to: 'category', show:User.admin()},
         { title: 'Login', to: 'login', show:!User.logedin() },
         { title: 'Logout', to: 'logout', show:User.logedin() },
       ],

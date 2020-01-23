@@ -40,7 +40,7 @@
         </div>
 
       <v-spacer></v-spacer>
-      <v-btn color="primary">5 Replies</v-btn>
+      <v-btn color="primary" dark>{{data.reply_count}} replies</v-btn>
     </v-card-actions>
 
 
@@ -68,12 +68,29 @@
         },
         methods:{
             destroy(){
-              axios.delete(`/api/quetion/${this.data.slug}`)
-              .then((result) => {
-                this.$router.push('/forum')
-              }).catch((err) => {
-                console.error(err)
-              });
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.delete(`/api/quetion/${this.data.slug}`)
+                        .then((result) => {
+                            this.$router.push('/forum')
+                        }).catch((err) => {
+                            console.error(err)
+                        });
+                        this.$swal.fire(
+                        'Deleted!',
+                        'Your quetion has been deleted.',
+                        'success'
+                        )
+                    }
+                })
             },
             edit(){
                 EventBus.$emit('startEditing');

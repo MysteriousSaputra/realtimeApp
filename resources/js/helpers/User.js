@@ -59,6 +59,10 @@ class User {
         return this.id() == id;
     }
 
+    admin(){
+        this.id() == 14
+    }
+
 
 }
 

@@ -16,13 +16,7 @@
         cols="12"
         sm="4"
       >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          One of three columns
-        </v-card>
+          <sidebar-forum></sidebar-forum>
       </v-col>
 
 
@@ -32,6 +26,7 @@
 
 <script>
     import quetion from './Quetion';
+    import SidebarForum from './SidebarForum';
 
     export default {
         data(){
@@ -40,7 +35,8 @@
             }
         },
         components:{
-            quetion
+            quetion,
+            SidebarForum
         },
         created(){
             axios.get('/api/quetion')

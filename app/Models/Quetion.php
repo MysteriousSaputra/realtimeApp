@@ -8,6 +8,8 @@ class Quetion extends Model
 {
     protected $guarded = [];
 
+    protected $with = ['replies'];
+
     public function getRouteKeyName()
     {
         return 'slug';

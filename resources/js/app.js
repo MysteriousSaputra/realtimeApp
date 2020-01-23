@@ -11,10 +11,12 @@ import Vuetify from 'vuetify';
 import VueSimplemde from 'vue-simplemde'
 import User from './helpers/User';
 import md from 'marked';
+import VueSweetalert2 from 'vue-sweetalert2';
 
 
 Vue.use(Vuetify);
 Vue.use(VueSimplemde);
+Vue.use(VueSweetalert2);
 
 
 window.User = User;

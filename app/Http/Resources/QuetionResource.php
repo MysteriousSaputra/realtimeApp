@@ -17,6 +17,8 @@ class QuetionResource extends JsonResource
         return [
             'title'=> $this->title,
             'path'=> $this->path,
+            'replies'=> $this->replies,
+            'reply_count'=> $this->replies->count(),
             'slug'=> $this->slug,
             'body'=> $this->body,
             'created_at'=> $this->created_at->diffForHumans(),

@@ -36,14 +36,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
+        $request['slug'] = str_slug($request->name);
+
 
         // $category = new Category;
         // $category->name = $request->name;
         // $category->slug = str_slug($request->name);
         // $category->save();
 
-        return response('created', 201);
+        return response(new CategoryResource(Category::create($request->all())), 201);
     }
 
     /**
@@ -66,8 +67,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request['slug'] = str_slug($request->name);
         $category->update($request->all());
-        return response('updated', 200);
+        return response(CategoryResource::collection(Category::latest()->get()), 200);
     }
 
     /**
