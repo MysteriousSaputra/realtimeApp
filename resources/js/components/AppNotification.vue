@@ -13,9 +13,12 @@
       <v-list
           v-for="(item, index) in unread"
           :key="index">
-        <v-list-item>
-          <v-list-item-title>{{item.data.quetion}}</v-list-item-title>
-        </v-list-item>
+        <router-link
+        :to="item.path">
+            <v-list-item>
+                <v-list-item-title @click="readNotif(item.id)">{{item.quetion}}</v-list-item-title>
+            </v-list-item>
+        </router-link>
       </v-list>
     </v-menu>
     </div>
@@ -40,9 +43,17 @@
                 axios.post('/api/notification')
                 .then((result) => {
                     this.read = result.data.read
-                    this.unread = result.data.unreadNotif
-                    this.unreadCount = result.data.unreadNotif.length
+                    this.unread = result.data.unreadNotif.filter(data => data.dlt == 0);
+                    this.unreadCount = result.data.unreadNotif.filter(data => data.dlt == 0).length
                     console.log(result.data.unreadNotif)
+                }).catch((err) => {
+                    console.error(err)
+                });
+            },
+            readNotif(data){
+                axios.put(`/api/readednotification/${data}`)
+                .then((result) => {
+                    console.log(result)
                 }).catch((err) => {
                     console.error(err)
                 });

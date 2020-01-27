@@ -14,6 +14,7 @@ class ReplyResource extends JsonResource
      */
     public function toArray($request)
     {
+        $liked = empty(auth()) ? auth()->id : 0 ;
         return [
             'id'=> $this->id,
             'reply'=> $this->body,
@@ -22,8 +23,9 @@ class ReplyResource extends JsonResource
             'user_id'=> $this->user_id,
             'quetion_slug'=> $this->quetion->slug,
             'like_count'=> $this->like->count(),
-            'liked'=> $this->like->where('user_id', auth()->user()->id)->count(),
-            'created_at'=> $this->created_at->diffForHumans()
+            'liked'=> $this->like->where('user_id', $liked)->count(),
+            'created_at'=> $this->created_at->diffForHumans(),
+            'auth'=> auth()
         ];
     }
 }
