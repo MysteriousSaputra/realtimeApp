@@ -10,6 +10,8 @@
       <v-toolbar-title>Forum Programmer</v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <notification
+      v-if="isLogin"></notification>
 
 
         <router-link
@@ -46,20 +48,28 @@
   </v-card>
 </template>
 <script>
+import Notification from './AppNotification';
   export default {
-    data: () => ({
-      items: [
-        { title: 'Forum', to: 'forum', show:true  },
-        { title: 'Ask Quetion', to: 'askQuetion', show:User.logedin()},
-        { title: 'Category', to: 'category', show:User.admin()},
-        { title: 'Login', to: 'login', show:!User.logedin() },
-        { title: 'Logout', to: 'logout', show:User.logedin() },
-      ],
-    }),
     created(){
         EventBus.$on('logout', () => {
             User.logout();
         })
+    },
+    components:{
+        Notification
+    },
+    data(){
+        return {
+
+        items: [
+            { title: 'Forum', to: 'forum', show:true  },
+            { title: 'Ask Quetion', to: 'askQuetion', show:User.logedin()},
+            { title: 'Category', to: 'category', show:User.admin()},
+            { title: 'Login', to: 'login', show:!User.logedin() },
+            { title: 'Logout', to: 'logout', show:User.logedin() },
+        ],
+            isLogin:User.logedin()
+        }
     }
   }
 </script>
